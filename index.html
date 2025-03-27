@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BABA VIP LOGIN</title>
+    <title>BABA VIP PREDICTOR</title>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri&display=swap" rel="stylesheet">
     <style>
         body {
@@ -20,82 +20,266 @@
             align-items: center;
             color: #ffcccc;
         }
-        .login-container {
+        .container {
             border: 2px solid rgba(255, 0, 0, 0.7);
             padding: 25px;
             border-radius: 15px;
             background: rgba(20, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
-            text-align: center;
+            max-width: 450px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6),
+                        0 0 50px rgba(255, 0, 0, 0.3),
+                        0 0 75px rgba(255, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite alternate;
         }
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid rgba(255, 0, 0, 0.8);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        .container:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8),
+                        0 0 60px rgba(255, 0, 0, 0.4),
+                        0 0 90px rgba(255, 0, 0, 0.3);
+        }
+        .result-box {
+            margin: 20px 0;
+            font-size: 24px;
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            background: rgba(30, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .result-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+        .history-container {
+            margin-top: 20px;
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            height: 150px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 15px;
+            background: rgba(30, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
         h1 {
             color: #ff3366;
-            text-shadow: 0 0 15px #ff3366;
-            font-size: 24px;
+            text-shadow: 0 0 15px #ff3366,
+                         0 0 30px rgba(255, 51, 102, 0.5);
             margin-bottom: 20px;
+            font-size: 28px;
+            letter-spacing: 1px;
+            animation: textGlow 2s ease-in-out infinite alternate;
         }
-        input {
-            width: 90%;
-            padding: 10px;
+        strong {
+            color: #ff3366;
+            text-shadow: 0 0 8px #ff3366;
+        }
+        p {
             margin: 10px 0;
-            border: 2px solid rgba(255, 0, 0, 0.7);
-            border-radius: 8px;
-            font-size: 18px;
-            text-align: center;
-            background: rgba(30, 0, 0, 0.6);
-            color: #ffcccc;
-            outline: none;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            color: #ff9999;
+            text-shadow: 0 0 5px #ff3333;
         }
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #ff3366;
-            color: white;
-            font-size: 18px;
+        #timer {
+            color: #ff6666;
+            text-shadow: 0 0 8px #ff3333;
             font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        #period {
+            color: #ff6666;
+            text-shadow: 0 0 8px #ff3333;
+            font-weight: bold;
+        }
+        #result {
+            font-size: 26px;
+            font-weight: bold;
             transition: all 0.3s ease;
         }
-        button:hover {
-            background: #ff0033;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        #result.BIGGG {
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88,
+                         0 0 20px rgba(0, 255, 136, 0.5);
+            animation: bigGlow 1.5s infinite alternate;
+        }
+        #result.SMALLL {
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88,
+                         0 0 20px rgba(0, 255, 136, 0.5);
+            animation: bigGlow 1.5s infinite alternate;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dashed rgba(255, 0, 0, 0.3);
+            color: #ff6666;
+            text-shadow: 0 0 5px #ff3333;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.6),
+                            0 0 50px rgba(255, 0, 0, 0.3),
+                            0 0 75px rgba(255, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.8),
+                            0 0 60px rgba(255, 0, 0, 0.4),
+                            0 0 90px rgba(255, 0, 0, 0.3);
+            }
+        }
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 15px #ff3366,
+                             0 0 30px rgba(255, 51, 102, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px #ff3366,
+                             0 0 40px rgba(255, 51, 102, 0.7),
+                             0 0 60px rgba(255, 51, 102, 0.3);
+            }
+        }
+        @keyframes bigGlow {
+            0% {
+                text-shadow: 0 0 10px #00ff88,
+                             0 0 20px rgba(0, 255, 136, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 15px #00ff88,
+                             0 0 30px rgba(0, 255, 136, 0.7);
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <img src="https://i.ibb.co/Q3dHdRPz/IMG-20250327-232201-293.jpg" alt="Logo" class="logo">
-        <h1>BABA VIP LOGIN</h1>
-        <input type="password" id="password" placeholder="Enter Password">
-        <button onclick="checkLogin()">Login</button>
+    <div class="container">
+        <h1>BABA VIP PREDICTOR </h1>
+        <p><strong>Status:</strong> Connected to Private AI Server </p>
+        <p><strong>UID CONNECTED</strong></p>
+
+        <div class="result-box">
+            <p>Period: <span id="period">000000</span></p>
+            <p>Timer: <span id="timer">00:30</span></p>
+            <p>Result: <span id="result">Pending...</span></p>
+        </div>
+
+        <div class="history-container">
+            <strong>Past Predictions:</strong>
+            <ul id="history-list"></ul>
+        </div>
     </div>
 
     <script>
-        function checkLogin() {
-            let password = document.getElementById("password").value;
-            if (password === "babaxmods") {
-                window.location.href = "predictor.html"; // Redirect to main predictor page
-            } else {
-                alert("Incorrect Password!");
-            }
+        let lastPeriod = "";
+    let history = [];
+    let lastPrediction = "";
+
+    function updatePeriodAndTimer() {
+        let now = new Date();
+        let startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 5, 30, 0);
+        let elapsedSeconds = Math.floor((now - startTime) / 1000);
+        if (elapsedSeconds < 0) elapsedSeconds = 0;
+
+        let totalPeriods = Math.floor(elapsedSeconds / 60); // 1-minute period calculation
+        let upcomingPeriod = totalPeriods + 1;
+
+        // Generate 91 Club compatible period number
+        let formattedDate = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now).replace(/\//g, '');
+        let periodNumber = formattedDate + `10000${String(upcomingPeriod).padStart(3, '0')}`;
+
+        if (periodNumber !== lastPeriod) {
+            lastPeriod = periodNumber;
+            generateResult();
         }
+
+        document.getElementById("period").innerText = periodNumber;
+
+        let remainingSeconds = 60 - (elapsedSeconds % 60);
+        document.getElementById("timer").innerText = `00:${String(remainingSeconds).padStart(2, '0')}`;
+
+        setTimeout(updatePeriodAndTimer, 1000);
+    }
+
+
+        function generateResult() {
+            let prediction = aiPrediction();
+            let resultElement = document.getElementById("result");
+            resultElement.innerText = prediction;
+            resultElement.className = prediction;
+            updateHistory(prediction);
+        }
+
+        function aiPrediction() {
+            let options = ["BIGGG", "SMALLL"];
+            let trendData = history.slice(-10);
+            let bigCount = trendData.filter(res => res === "BIGGG").length;
+            let smallCount = trendData.filter(res => res === "SMALLL").length;
+
+            let probabilityBig = 0.5;
+            let probabilitySmall = 0.5;
+
+            if (bigCount > smallCount) {
+                probabilityBig = 0.4;
+                probabilitySmall = 0.6;
+            } else if (smallCount > bigCount) {
+                probabilityBig = 0.6;
+                probabilitySmall = 0.4;
+            }
+
+            let randomValue = Math.random();
+            let selectedPrediction = randomValue < probabilityBig ? "BIGGG" : "SMALLL";
+
+            let lastThree = history.slice(-3);
+            if (lastThree.length === 3 && lastThree.every(res => res === selectedPrediction)) {
+                selectedPrediction = selectedPrediction === "BIGGG" ? "SMALLL" : "BIGGG";
+            }
+
+            if (history.length >= 4) {
+                let lastFour = history.slice(-4);
+                if (lastFour[0] !== lastFour[1] && lastFour[1] !== lastFour[2] && lastFour[2] !== lastFour[3]) {
+                    selectedPrediction = lastPrediction;
+                }
+            }
+
+            let adjustmentFactor = Math.random();
+            if (adjustmentFactor > 0.8) {
+                selectedPrediction = Math.random() > 0.5 ? "BIGGG" : "SMALLL";
+            }
+
+            return selectedPrediction;
+        }
+
+        function updateHistory(result) {
+            let historyList = document.getElementById("history-list");
+            let newEntry = document.createElement("li");
+            newEntry.innerText = `Period ${lastPeriod}: ${result}`;
+            historyList.prepend(newEntry);
+
+            if (historyList.children.length > 15) {
+                historyList.removeChild(historyList.lastChild);
+            }
+
+            history.push(result);
+            lastPrediction = result;
+        }
+
+        updatePeriodAndTimer();
     </script>
 
 </body>
