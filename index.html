@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BABA VIP LOGIN</title>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'El Messiri', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: url('https://i.ibb.co/BHL0pJ4k/a95eb6bd-9354-41c6-9021-93901eb4a497.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffcccc;
+        }
+        .login-container {
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(20, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        h1 {
+            color: #ff3366;
+            text-shadow: 0 0 15px #ff3366;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            background: rgba(30, 0, 0, 0.6);
+            color: #ffcccc;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #ff3366;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #ff0033;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="https://i.ibb.co/Q3dHdRPz/IMG-20250327-232201-293.jpg" alt="Logo" class="logo">
+        <h1>BABA VIP LOGIN</h1>
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="checkLogin()">Login</button>
+    </div>
+
+    <script>
+        function checkLogin() {
+            let password = document.getElementById("password").value;
+            if (password === "babaxmods") {
+                window.location.href = "predictor.html"; // Redirect to main predictor page
+            } else {
+                alert("Incorrect Password!");
+            }
+        }
+    </script>
+
+</body>
+</html>
